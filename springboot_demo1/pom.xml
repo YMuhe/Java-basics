@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<!--公司域名倒写-->
+	<groupId>com.jt</groupId>
+	<!--项目名称-->
+	<artifactId>springboot_demo1</artifactId>
+	<!--版本号-->
+	<version>0.0.1-SNAPSHOT</version>
+	<!--maven解析时 项目文件名称-->
+	<name>springboot_demo1</name>
+	<!--描述信息-->
+	<description>Demo project for Spring Boot</description>
+
+	<!--
+		springboot官方将自身所有用到的jar包的文件进行了统一的管理定义(冲突问题最大程度上进行解决)
+		防止内部jar包文件冲突.
+	-->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.2</version>
+		<relativePath/>
+	</parent>
+
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+		<!--按照需要的jar包进行依赖,但是不需要指定版本号.因为在父级项目中进行统一的定义-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<!--spring-boot-starter启动项  springboot官网已经完成了基础的设定,无需再次配置 -->
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<!--springboot程序与当前的maven项目打包/发布/部署进行关联-->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
