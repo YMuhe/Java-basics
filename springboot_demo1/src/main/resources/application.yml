@@ -1,6 +1,29 @@
 # 语法:  1.数据结构   key:(空格)value
 #        2.key与key之间有层级缩进的效果  特别注意
 #        3.YML文件默认采用UTF-8格式,所以中文不乱码
+#配置默认的环境名称
+spring:
+  profiles:
+    active : prod
+
+### 环境分割符
+---
+spring:
+  config:
+    activate:
+      on-profile: test
 redis:
-  host: 192.168.1.1
+  host: 10.3.5.16
+  port: 7000
+
+#1.环境分割
+---
+#2.定义环境名称
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+redis:
+  host: 192.168.1.100
   port: 6379
