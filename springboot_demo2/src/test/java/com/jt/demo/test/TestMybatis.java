@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest
@@ -65,6 +66,55 @@ public class TestMybatis {
         queryWrapper.eq("name", "小乔");
         System.out.println(userMapper.selectList(queryWrapper));
     }
+
+    /**
+     * 查询案例3: 查询age>18岁,并且name中包含 *精*用户
+     * Sql: select * from user where age>18 and name like '%精%'
+     * 如果中间是and连接符可以省略不写
+     */
+     @Test
+     public void testSelectAnd(){
+         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+         queryWrapper.gt("age", 18)
+                     .like("name", "精");
+         System.out.println(userMapper.selectList(queryWrapper));
+     }
+
+    /**
+     * 查询案例4:
+     *  查询name不为null的用户,并且 sex=女, name要求以"君"结尾
+     *  最后将数据按照id倒序排列
+     */
+     @Test
+     public void testSelectDemo4(){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.isNotNull("name")
+                    .eq("sex", "女")
+                    .likeLeft("name", "君")
+                    .orderByDesc("id");
+         System.out.println(userMapper.selectList(queryWrapper));
+     }
+
+    /**
+     * 批量查询:  查询id=1,2,5,7,8 1000 的数据
+     * 关键字:    in
+     */
+     @Test
+     public void testSelectIn(){
+         //数据基本结构没有取值方法.所以需要通过集合处理.
+         Integer[] idArray = {1,2,5,7};
+         //数组转化时使用包装类型
+         List<Integer> idList = Arrays.asList(idArray);
+         QueryWrapper queryWrapper = new QueryWrapper();
+         queryWrapper.in("id", idList);
+         System.out.println(userMapper.selectList(queryWrapper));
+
+         //该方法与上述操作sql一致,只不过写法不同
+         userMapper.selectBatchIds(idList);
+
+         //获取数据表中第一个字段信息(主键)
+         System.out.println(userMapper.selectObjs(null));
+     }
 
 
 
