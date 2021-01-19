@@ -20,7 +20,4 @@ public class TestMybatis {
         List<User> userList = userMapper.findAll();
         System.out.println(userList);
     }
-
-
-
 }
