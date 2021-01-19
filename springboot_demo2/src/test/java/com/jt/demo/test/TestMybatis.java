@@ -20,4 +20,15 @@ public class TestMybatis {
         List<User> userList = userMapper.findAll();
         System.out.println(userList);
     }
+
+    /*
+    * 完成用户信息入库
+    */
+    @Test
+    public void testInsert(){
+        User user = new User();
+        user.setName("郑爽").setAge(30).setSex("女");
+        //单表sql语句几乎不写
+        userMapper.insert(user);
+    }
 }
