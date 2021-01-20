@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @MapperScan("com.jt.mapper")
 public class SpringBootRun {
-	//测试代码测试正常
 	public static void main(String[] args) {
 
 		SpringApplication.run(SpringBootRun.class, args);
