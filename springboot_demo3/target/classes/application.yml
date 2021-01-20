@@ -11,6 +11,12 @@ spring:
     username: root
     password: root
 
+  #配置视图解析器
+  mvc:         #引入mvn配置
+    view:
+      prefix: /WEB-INF/     # /默认代表根目录 src/main/webapp
+      suffix: .jsp
+
 #整合MybatisPlus
 mybatis-plus:
   #只要定义了别名包 之后的映射类型可以自动的完成拼接.

@@ -21,4 +21,20 @@ public class UserController {
 
         return userService.findAll();
     }
+
+    /**
+     * 实现页面跳转
+     * url:http://localhost:8090/userList  userList.jsp
+     */
+    @RequestMapping("/userList")
+    //@ResponseBody //1.将返回值结果转化为JSON  2.表示程序结束  3.不会执行视图解析器配置
+    public String userList(){
+
+        return "userList";
+    }
+
+
+
+
+
 }
