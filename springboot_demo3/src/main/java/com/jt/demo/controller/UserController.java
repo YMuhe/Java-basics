@@ -39,6 +39,15 @@ public class UserController {
         return "userList";
     }
 
+    /**
+     * 跳转到ajax页面
+     */
+    @RequestMapping("ajaxUser")
+    public String toAjax(){
+
+        return "ajaxUserList";
+
+    }
 
 
 
