@@ -17,7 +17,7 @@
 			<th>性别</th>
 			<th></th>
 		</tr>
-		
+		<!-- 循环遍历 ${userList} 从域中动态获取数据. page域  request域  session域 application域    -->
 		<c:forEach items="${userList}" var="u">
 			<tr>
 				<th>${u.id}</th>
