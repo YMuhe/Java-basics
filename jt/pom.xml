@@ -6,6 +6,12 @@
     <groupId>com.jt</groupId>
     <artifactId>jt</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <!--父级中的子模块信息 是动态生成的 其中的信息必须正确-->
+    <modules>
+        <module>jt-common</module>
+        <module>jt-manage</module>
+    </modules>
     <!-- 定义聚合工程 大项目包含小项目 -->
     <packaging>pom</packaging>
 
