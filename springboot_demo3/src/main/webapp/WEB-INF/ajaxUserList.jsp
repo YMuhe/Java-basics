@@ -21,7 +21,7 @@
 		 * 		回调函数: 需要获取服务器端数据 一般都是携带参数
 		 * 		返回值类型: 可以为html/text/json/javaScript等 一般不写 程序自动完成解析.
 		 */
-		$.get("/findAll",function(result){
+		$.get("/findAll2",function(result){
 			
 			//console.log(result);
 			//遍历方式1 常规for循环
@@ -44,9 +44,44 @@
 				let tr = "<tr align='center'><td>"+id+"</td><td>"+name+"</td><td>"+age+"</td><td>"+sex+"</td></tr>"
 				$("#tab1").append(tr);
 			}
-				
-			
 		});
+		
+		/*
+			完成$.ajax业务调用
+			属性说明:
+				1.type : 定义请求的类型 GET/POST/PUT/DELETE
+				2.URL:	 指定请求的路径
+				3.dataType: 指定返回值类型  一般可以省略
+				4.data : ajax向后端服务器传递的数据
+						1.{key:value,key2:value2}
+						2.key=value&key2=value2
+				5.success: 设定回调函数一般都会携带参数
+				6.async	异步操作 默认值为true  改为false表示同步操作.
+				7.error 请求异常之后 执行的函数.
+				8.cache ajax是否使用缓存  默认值为true
+		*/
+		$.ajax({
+			url : "/findAll",
+			type: "GET",
+			dataType : "JSON",
+			success : function(result){
+				for(let user of result){
+					let id = user.id;
+					let name = user.name;
+					let age = user.age;
+					let sex = user.sex;
+					//使用原生JS方式编辑
+					let tr = "<tr align='center'><td>"+id+"</td><td>"+name+"</td><td>"+age+"</td><td>"+sex+"</td></tr>"
+					$("#tab1").append(tr);
+				}
+			},
+			error	: function(result){
+				alert("服务器异常,稍后重试!!");
+			},
+			cache : false
+			
+		})
+		
 		
 		
 	})
