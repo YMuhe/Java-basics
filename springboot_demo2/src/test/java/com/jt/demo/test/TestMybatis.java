@@ -1,6 +1,7 @@
 package com.jt.demo.test;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.jt.demo.mapper.UserMapper;
 import com.jt.demo.pojo.User;
 import org.junit.jupiter.api.Test;
@@ -116,8 +117,26 @@ public class TestMybatis {
          System.out.println(userMapper.selectObjs(null));
      }
 
+     /*
+        MP更新操作
+        1.更新id=71的数据 name改为张翰
+        2.将name="郑爽" 改为name="胡彦斌" sex改为男  age=20
+        userMapper.update(修改后的数据对象set条件,修改的条件构造器where条件)
+     * */
+     @Test
+     public void update(){
+         User user = new User();
+         user.setName("胡彦斌").setSex("男").setAge(20);
+         UpdateWrapper updateWrapper = new UpdateWrapper();
+         updateWrapper.eq("name", "郑爽");
+         userMapper.update(user,updateWrapper);
+         System.out.println("更新操作成功!!!!");
 
-
+         /*User user = new User();
+         //id当做where条件 其他不为null的属性当做set条件
+         user.setId(71).setName("张翰");
+         userMapper.updateById(user);*/
+     }
 
 
 }
