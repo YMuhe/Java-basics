@@ -36,11 +36,16 @@
 			
 			//循环方式3: of关键字   直接获取遍历的对象
 			for(let user of result){
-				console.log(user);
+				let id = user.id;
+				let name = user.name;
+				let age = user.age;
+				let sex = user.sex;
+				//使用原生JS方式编辑
+				let tr = "<tr align='center'><td>"+id+"</td><td>"+name+"</td><td>"+age+"</td><td>"+sex+"</td></tr>"
+				$("#tab1").append(tr);
 			}
 				
-			//使用原生JS方式编辑   
-			let tr = "<tr><td></td><td></td><td></td><td></td></tr>"
+			
 		});
 		
 		
@@ -48,7 +53,7 @@
 </script>
 </head>
 <body>
-	<table border="1px" width="65%" align="center">
+	<table border="1px" width="65%" align="center" id="tab1">
 		<tr>
 			<td colspan="6" align="center"><h3>学生信息</h3></td>
 		</tr>
