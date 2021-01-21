@@ -8,9 +8,9 @@
         <outputRelativeToContentRoot value="true" />
         <module name="springboot_demo1" />
         <module name="jt-manage" />
+        <module name="springboot_demo2" />
         <module name="jt-common" />
         <module name="springboot_demo3" />
-        <module name="springboot_demo2" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

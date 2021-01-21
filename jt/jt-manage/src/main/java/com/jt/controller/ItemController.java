@@ -1,18 +1,33 @@
 package com.jt.controller;
 
+import com.jt.vo.EasyUITable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jt.service.ItemService;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.ArrayList;
+import java.util.List;
+
+@RestController	//返回的数据都是JSON数据.
+@RequestMapping("/item")
 public class ItemController {
 	
 	@Autowired
 	private ItemService itemService;
-	
-	
-	
+
+	/**
+	 * 业务说明: 完成商品分页查询
+	 * URL地址:	http://localhost:8091/item/query?page=1 页数 &rows=20 行数
+	 * 参数:	page/rows
+	 * 返回值:  EasyUITable
+	 */
+	 @RequestMapping("/query")
+	 public EasyUITable findItemByPage(Integer page,Integer rows){
+
+	 	return itemService.findItemByPage(page,rows);
+	 }
 	
 }

@@ -1,10 +1,7 @@
 package com.jt.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class IndexController {
@@ -27,6 +24,7 @@ public class IndexController {
 	 * 	POST 新增操作
 	 * 	PUT  更新操作
 	 * 	DELETE	删除操作
+	 * 				  /page/item-list
 	 * */
 	@RequestMapping("/page/{moduleName}")	//可以接收任意请求类型
 	//@GetMapping
