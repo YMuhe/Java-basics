@@ -35,9 +35,10 @@ public class ItemServiceImpl implements ItemService {
 		QueryWrapper<Item> queryWrapper = new QueryWrapper<>();
 		queryWrapper.orderByDesc("updated");
 		iPage = itemMapper.selectPage(iPage,queryWrapper);
+		long total = iPage.getTotal();		//获取总记录数
+		List<Item> itemList = iPage.getRecords(); //获取当前页的数据
+		return new EasyUITable(total,itemList);
 
-		return new EasyUITable(iPage.getTotal(), iPage.getRecords());
-								//获取总记录数    获取当前页的数据
 	}
 
 
