@@ -82,7 +82,7 @@ var TT = KindEditorUtil = {		//相当于java中定义的工具类，里面提供
     findItemCatName : function(val,row){
         //console.log("商品分类ID号:"+val);
         let name = null;
-        // //异步出现了问题 由于异步操作程序没有返回数据之前,提前结束所以程序为null
+        //异步出现了问题 由于异步操作程序没有返回数据之前,提前结束所以程序为null
 		$.ajax({
 			type : "GET",
 			url :  "/itemCat/findItemCatById",
@@ -91,7 +91,7 @@ var TT = KindEditorUtil = {		//相当于java中定义的工具类，里面提供
 				//console.log(result.name);
 				name = result.name;
 			},
-			async : false  //设置为异步操作   true为同步....
+			async : false  //设置为同步状态    true为异步.
 		})
 		return name;
     },
