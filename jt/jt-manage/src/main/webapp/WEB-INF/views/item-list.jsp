@@ -12,6 +12,7 @@
             <th data-options="field:'num',width:70,align:'right'">库存数量</th>
             <th data-options="field:'barcode',width:100">条形码</th>
             <th data-options="field:'status',width:60,align:'center',formatter:KindEditorUtil.formatItemStatus">状态</th>
+            <!-- formatter:KindEditorUtil.formatDateTime 将当前节点的值交给指定的函数处理-->
             <th data-options="field:'created',width:130,align:'center',formatter:KindEditorUtil.formatDateTime">创建日期</th>
             <th data-options="field:'updated',width:130,align:'center',formatter:KindEditorUtil.formatDateTime">更新日期</th>
         </tr>

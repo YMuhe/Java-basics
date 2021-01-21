@@ -28,7 +28,9 @@ var TT = KindEditorUtil = {		//相当于java中定义的工具类，里面提供
 	},
 	// 格式化时间
 	formatDateTime : function(val,row){
-		var now = new Date(val);
+	 	//将字符串转化为js对象 时间对象
+	 	var now = new Date(val);
+	 	//将当前时间按照指定的格式进行转化
     	return now.format("yyyy-MM-dd hh:mm:ss");
 	},
 	// 格式化连接
@@ -40,38 +42,28 @@ var TT = KindEditorUtil = {		//相当于java中定义的工具类，里面提供
 	},
 	
 	/**
-	 * 远程中心:查看common.js/43行代码,如何格式化价格??
+	 * val代表是当前节点的值
+	   row代表当前的行级元素信息 对象
 	 */
 	// 格式化价格
 	formatPrice : function(val,row){
+
 		return (val/100).toFixed(2);
 	},
 	// 格式化商品的状态
 	formatItemStatus : function formatStatus(val,row){
         if (val == 1){
-            return '正常';
+            return '<span style="color:green;">上架</span>';
         } else if(val == 2){
         	return '<span style="color:red;">下架</span>';
         } else {
-        	return '未知';
+        	return '<span style="color:blue;">未知</span>';
         }
     },
-    //格式化名称
-    findItemCatName : function(val,row){
-    	var name;
-    	$.ajax({
-    		type:"post",
-    		url:"/item/cat/queryItemName",
-    		data:{itemCatId:val},
-    		cache:true,    //缓存
-    		async:false,    //表示同步   默认的是异步的true
-    		dataType:"text",//表示返回值参数类型
-    		success:function(data){
-        		name = data;
-        	}
-    	});
-    	return name;
-	},
+    //实现商品分类的回显操作!!!!!!!
+
+
+
     
     init : function(data){
     	this.initPicUpload(data);
