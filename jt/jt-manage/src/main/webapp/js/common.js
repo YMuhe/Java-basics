@@ -60,11 +60,37 @@ var TT = KindEditorUtil = {		//相当于java中定义的工具类，里面提供
         	return '<span style="color:blue;">未知</span>';
         }
     },
-    //实现商品分类的回显操作!!!!!!!
 
+    /**
+     * 完成$.ajax业务调用
+        属性说明:
+            1.type : 定义请求的类型 GET/POST/PUT/DELETE
+            2.URL:	 指定请求的路径
+            3.dataType: 指定返回值类型  一般可以省略
+            4.data : ajax向后端服务器传递的数据
+                    1.{key:value,key2:value2}
+                    2.key=value&key2=value2
+            5.success: 设定回调函数一般都会携带参数
+            6.async	异步操作 默认值为true  改为false表示同步操作.
+            7.error 请求异常之后 执行的函数.
+            8.cache ajax是否使用缓存  默认值为true
 
+        1.动态获取用户传递的itemCatId的值.
+        2.利用ajax实现数据的动态的获取
+        ajax:  $.get/$.post/$.getJSON/$.ajax
+    **/
+    findItemCatName : function(val,row){
+        //console.log("商品分类ID号:"+val);
+		$.ajax({
+			type : "GET",
+			url :  "/itemCat/findItemCatById",
+			data : {id:val},
+			success : function(result){
+				console.log(result);
+			}
+		})
+    },
 
-    
     init : function(data){
     	this.initPicUpload(data);
     	this.initItemCat(data);
