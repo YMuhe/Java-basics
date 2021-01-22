@@ -23,14 +23,17 @@
 <script>
 
     function getSelectionsIds(){
+        //选择的是整个list集合页面
     	var itemList = $("#itemList");
-    	/*[item,item,item,item]*/
+    	//该datagrid方法是ui内部的函数 动态获取选中的元素信息
     	var sels = itemList.datagrid("getSelections");
+        //动态获取选中元素的ID的值
     	var ids = [];
     	for(var i in sels){
+    	    //将数据添加到数组中
     		ids.push(sels[i].id);
     	}
-    	//将数组拼接成串 1,2,3,4,5
+    	//将数组按照指定的字符进行链接
     	ids = ids.join(",");
     	return ids;
     }
@@ -57,6 +60,7 @@
         	}
         	
         	$("#itemEditWindow").window({
+        	    //数据回显
         		onLoad :function(){
         			//回显数据
         			var data = $("#itemList").datagrid("getSelections")[0];
@@ -71,35 +75,35 @@
         					itemEditEditor.html(_data.data.itemDesc);
         				}
         			});
-        			
+
         			//加载商品规格
         			$.getJSON('/item/param/item/query/'+data.id,function(_data){
         				if(_data && _data.status == 200 && _data.data && _data.data.paramData){
         					$("#itemeEditForm .params").show();
         					$("#itemeEditForm [name=itemParams]").val(_data.data.paramData);
         					$("#itemeEditForm [name=itemParamId]").val(_data.data.id);
-        					
+
         					//回显商品规格
         					 var paramData = JSON.parse(_data.data.paramData);
-        					
+
         					 var html = "<ul>";
         					 for(var i in paramData){
         						 var pd = paramData[i];
         						 html+="<li><table>";
         						 html+="<tr><td colspan=\"2\" class=\"group\">"+pd.group+"</td></tr>";
-        						 
+
         						 for(var j in pd.params){
         							 var ps = pd.params[j];
         							 html+="<tr><td class=\"param\"><span>"+ps.k+"</span>: </td><td><input autocomplete=\"off\" type=\"text\" value='"+ps.v+"'/></td></tr>";
         						 }
-        						 
+
         						 html+="</li></table>";
         					 }
         					 html+= "</ul>";
         					 $("#itemeEditForm .params td").eq(1).html(html);
         				}
         			});
-        			
+
         			KindEditorUtil.init({
         				"pics" : data.image,
         				"cid" : data.cid,
