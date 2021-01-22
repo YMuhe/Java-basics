@@ -159,7 +159,7 @@ var TT = KindEditorUtil = {		//相当于java中定义的工具类，里面提供
     			    onOpen : function(){ //当窗口打开后执行
     			    	var _win = this;
     			    	$("ul",_win).tree({
-    			    		url:'/item/cat/list',
+    			    		url:'/itemCat/list',
     			    		animate:true,
     			    		onClick : function(node){
     			    			if($(this).tree("isLeaf",node.target)){

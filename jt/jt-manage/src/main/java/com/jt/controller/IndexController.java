@@ -25,6 +25,7 @@ public class IndexController {
 	 * 	PUT  更新操作
 	 * 	DELETE	删除操作
 	 * 				  /page/item-list
+	 * 				  /page/item-add
 	 * */
 	@RequestMapping("/page/{moduleName}")	//可以接收任意请求类型
 	//@GetMapping
