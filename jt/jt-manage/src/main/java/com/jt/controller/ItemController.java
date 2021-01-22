@@ -1,6 +1,8 @@
 package com.jt.controller;
 
+import com.jt.pojo.Item;
 import com.jt.vo.EasyUITable;
+import com.jt.vo.SysResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,5 +31,26 @@ public class ItemController {
 
 	 	return itemService.findItemByPage(page,rows);
 	 }
-	
+
+	/**
+	 * 业务说明:实现商品的入库操作
+	 * URL地址:	http://localhost:8091/item/save
+	 * 请求参数: 整个form表单 利用对象进行接收
+	 * 返回值:   SysResult对象
+	 */
+	 @RequestMapping("/save")
+	 public SysResult saveItem(Item item){
+		try {
+			itemService.saveItem(item);
+			return SysResult.success();
+		}catch (Exception e){
+			e.printStackTrace();
+			return SysResult.fail();
+		}
+	 }
+
+
+
+
+
 }

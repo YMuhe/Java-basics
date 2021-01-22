@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.jt.mapper.ItemMapper;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -42,12 +43,13 @@ public class ItemServiceImpl implements ItemService {
 
 	}
 
-
-
-
-
-
-
+	@Override
+	public void saveItem(Item item) {
+		Date date = new Date();
+		item.setStatus(1).setCreated(date).setUpdated(date);
+		itemMapper.insert(item);
+		//int a = 1/0;
+	}
 
 
 	/**
