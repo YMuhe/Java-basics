@@ -60,15 +60,15 @@
         	}
         	
         	$("#itemEditWindow").window({
-        	    //数据回显
         		onLoad :function(){
-        			//回显数据
+        			//1.获取用户选中的记录
         			var data = $("#itemList").datagrid("getSelections")[0];
+        			//2.将数据库中的价格缩小100倍,之后赋值给priceView
         			data.priceView = KindEditorUtil.formatPrice(data.price);
+        			//3.利用load函数,将数据按照name属性的名称实现数据赋值. 实现回显
         			$("#itemeEditForm").form("load",data);
         			
         			// 加载商品描述
-        			//_data = SysResult.ok(itemDesc)
         			$.getJSON('/item/query/item/desc/'+data.id,function(_data){
         				if(_data.status == 200){
         					//UM.getEditor('itemeEditDescEditor').setContent(_data.data.itemDesc, false);
@@ -76,33 +76,20 @@
         				}
         			});
 
-        			//加载商品规格
-        			$.getJSON('/item/param/item/query/'+data.id,function(_data){
-        				if(_data && _data.status == 200 && _data.data && _data.data.paramData){
-        					$("#itemeEditForm .params").show();
-        					$("#itemeEditForm [name=itemParams]").val(_data.data.paramData);
-        					$("#itemeEditForm [name=itemParamId]").val(_data.data.id);
+                    //删除商品规格的JS代码
 
-        					//回显商品规格
-        					 var paramData = JSON.parse(_data.data.paramData);
+                    /*
+                        1.动态获取cid值.
+                        2.发送ajax请求,获取商品分类的名称
+                        3.将名称在指定的位置进行展现
+                    */
+                    let cid = data.cid;
+                    $.get("/itemCat/findItemCatById",{id:cid},function(result){
+                        //获取商品分类名称
+                        let name = result.name;
+                        $("#itemeEditForm input[name='cid']").prev().text(name);
+                    })
 
-        					 var html = "<ul>";
-        					 for(var i in paramData){
-        						 var pd = paramData[i];
-        						 html+="<li><table>";
-        						 html+="<tr><td colspan=\"2\" class=\"group\">"+pd.group+"</td></tr>";
-
-        						 for(var j in pd.params){
-        							 var ps = pd.params[j];
-        							 html+="<tr><td class=\"param\"><span>"+ps.k+"</span>: </td><td><input autocomplete=\"off\" type=\"text\" value='"+ps.v+"'/></td></tr>";
-        						 }
-
-        						 html+="</li></table>";
-        					 }
-        					 html+= "</ul>";
-        					 $("#itemeEditForm .params td").eq(1).html(html);
-        				}
-        			});
 
         			KindEditorUtil.init({
         				"pics" : data.image,
