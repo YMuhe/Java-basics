@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jt.mapper.ItemMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -44,11 +45,12 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
+	@Transactional	//添加事务控制
 	public void saveItem(Item item) {
-		Date date = new Date();
-		item.setStatus(1).setCreated(date).setUpdated(date);
+		//Date date = new Date();
+		//item.setStatus(1).setCreated(date).setUpdated(date);
+		item.setStatus(1);
 		itemMapper.insert(item);
-		//int a = 1/0;
 	}
 
 
