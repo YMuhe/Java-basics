@@ -28,7 +28,9 @@ var TT = KindEditorUtil = {		//相当于java中定义的工具类，里面提供
 	},
 	// 格式化时间
 	formatDateTime : function(val,row){
-		var now = new Date(val);
+	 	//将字符串转化为js对象 时间对象
+	 	var now = new Date(val);
+	 	//将当前时间按照指定的格式进行转化
     	return now.format("yyyy-MM-dd hh:mm:ss");
 	},
 	// 格式化连接
@@ -40,39 +42,60 @@ var TT = KindEditorUtil = {		//相当于java中定义的工具类，里面提供
 	},
 	
 	/**
-	 * 远程中心:查看common.js/43行代码,如何格式化价格??
+	 * val代表是当前节点的值
+	   row代表当前的行级元素信息 对象
 	 */
 	// 格式化价格
 	formatPrice : function(val,row){
+
 		return (val/100).toFixed(2);
 	},
 	// 格式化商品的状态
 	formatItemStatus : function formatStatus(val,row){
         if (val == 1){
-            return '正常';
+            return '<span style="color:green;">上架</span>';
         } else if(val == 2){
         	return '<span style="color:red;">下架</span>';
         } else {
-        	return '未知';
+        	return '<span style="color:blue;">未知</span>';
         }
     },
-    //格式化名称
+
+    /**
+     * 完成$.ajax业务调用
+        属性说明:
+            1.type : 定义请求的类型 GET/POST/PUT/DELETE
+            2.URL:	 指定请求的路径
+            3.dataType: 指定返回值类型  一般可以省略
+            4.data : ajax向后端服务器传递的数据
+                    1.{key:value,key2:value2}
+                    2.key=value&key2=value2
+            5.success: 设定回调函数一般都会携带参数
+            6.async	异步操作 默认值为true  改为false表示同步操作.
+            7.error 请求异常之后 执行的函数.
+            8.cache ajax是否使用缓存  默认值为true
+
+        1.动态获取用户传递的itemCatId的值.
+        2.利用ajax实现数据的动态的获取
+        ajax:  $.get/$.post/$.getJSON/$.ajax
+    **/
     findItemCatName : function(val,row){
-    	var name;
-    	$.ajax({
-    		type:"post",
-    		url:"/item/cat/queryItemName",
-    		data:{itemCatId:val},
-    		cache:true,    //缓存
-    		async:false,    //表示同步   默认的是异步的true
-    		dataType:"text",//表示返回值参数类型
-    		success:function(data){
-        		name = data;
-        	}
-    	});
-    	return name;
-	},
-    
+        //console.log("商品分类ID号:"+val);
+        let name = null;
+        //异步出现了问题 由于异步操作程序没有返回数据之前,提前结束所以程序为null
+		$.ajax({
+			type : "GET",
+			url :  "/itemCat/findItemCatById",
+			data : {id:val},
+			success : function(result){  //ItemCat
+				//console.log(result.name);
+				name = result.name;
+			},
+			async : false  //设置为同步状态    true为异步.
+		})
+		return name;
+    },
+
     init : function(data){
     	this.initPicUpload(data);
     	this.initItemCat(data);
@@ -136,7 +159,7 @@ var TT = KindEditorUtil = {		//相当于java中定义的工具类，里面提供
     			    onOpen : function(){ //当窗口打开后执行
     			    	var _win = this;
     			    	$("ul",_win).tree({
-    			    		url:'/item/cat/list',
+    			    		url:'/itemCat/list',
     			    		animate:true,
     			    		onClick : function(node){
     			    			if($(this).tree("isLeaf",node.target)){

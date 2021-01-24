@@ -104,9 +104,14 @@
 		
 		$("#itemAddForm [name=itemParams]").val(paramJson);
 		
-		/*$.post/get(url,JSON,function(data){....})  
-			?id=1&title="天龙八部&key=value...."
+		/*
+		    ajax中的参数:
+		        假设参数有100个???
+		        1.{id:1,name:"tomcat"}
+		        2.id=1&name="tomcat"
+		        3.可以支持表单序列化 将form表单中的所有的参数与值通过&符的形式进行拼接
 		*/
+
 		//alert($("#itemAddForm").serialize());
 		$.post("/item/save",$("#itemAddForm").serialize(), function(data){
 			if(data.status == 200){

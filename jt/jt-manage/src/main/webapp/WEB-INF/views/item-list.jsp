@@ -12,6 +12,7 @@
             <th data-options="field:'num',width:70,align:'right'">库存数量</th>
             <th data-options="field:'barcode',width:100">条形码</th>
             <th data-options="field:'status',width:60,align:'center',formatter:KindEditorUtil.formatItemStatus">状态</th>
+            <!-- formatter:KindEditorUtil.formatDateTime 将当前节点的值交给指定的函数处理-->
             <th data-options="field:'created',width:130,align:'center',formatter:KindEditorUtil.formatDateTime">创建日期</th>
             <th data-options="field:'updated',width:130,align:'center',formatter:KindEditorUtil.formatDateTime">更新日期</th>
         </tr>
@@ -22,14 +23,17 @@
 <script>
 
     function getSelectionsIds(){
+        //选择的是整个list集合页面
     	var itemList = $("#itemList");
-    	/*[item,item,item,item]*/
+    	//该datagrid方法是ui内部的函数 动态获取选中的元素信息
     	var sels = itemList.datagrid("getSelections");
+        //动态获取选中元素的ID的值
     	var ids = [];
     	for(var i in sels){
+    	    //将数据添加到数组中
     		ids.push(sels[i].id);
     	}
-    	//将数组拼接成串 1,2,3,4,5
+    	//将数组按照指定的字符进行链接
     	ids = ids.join(",");
     	return ids;
     }
@@ -57,48 +61,36 @@
         	
         	$("#itemEditWindow").window({
         		onLoad :function(){
-        			//回显数据
+        			//1.获取用户选中的记录
         			var data = $("#itemList").datagrid("getSelections")[0];
+        			//2.将数据库中的价格缩小100倍,之后赋值给priceView
         			data.priceView = KindEditorUtil.formatPrice(data.price);
+        			//3.利用load函数,将数据按照name属性的名称实现数据赋值. 实现回显
         			$("#itemeEditForm").form("load",data);
         			
         			// 加载商品描述
-        			//_data = SysResult.ok(itemDesc)
         			$.getJSON('/item/query/item/desc/'+data.id,function(_data){
         				if(_data.status == 200){
         					//UM.getEditor('itemeEditDescEditor').setContent(_data.data.itemDesc, false);
         					itemEditEditor.html(_data.data.itemDesc);
         				}
         			});
-        			
-        			//加载商品规格
-        			$.getJSON('/item/param/item/query/'+data.id,function(_data){
-        				if(_data && _data.status == 200 && _data.data && _data.data.paramData){
-        					$("#itemeEditForm .params").show();
-        					$("#itemeEditForm [name=itemParams]").val(_data.data.paramData);
-        					$("#itemeEditForm [name=itemParamId]").val(_data.data.id);
-        					
-        					//回显商品规格
-        					 var paramData = JSON.parse(_data.data.paramData);
-        					
-        					 var html = "<ul>";
-        					 for(var i in paramData){
-        						 var pd = paramData[i];
-        						 html+="<li><table>";
-        						 html+="<tr><td colspan=\"2\" class=\"group\">"+pd.group+"</td></tr>";
-        						 
-        						 for(var j in pd.params){
-        							 var ps = pd.params[j];
-        							 html+="<tr><td class=\"param\"><span>"+ps.k+"</span>: </td><td><input autocomplete=\"off\" type=\"text\" value='"+ps.v+"'/></td></tr>";
-        						 }
-        						 
-        						 html+="</li></table>";
-        					 }
-        					 html+= "</ul>";
-        					 $("#itemeEditForm .params td").eq(1).html(html);
-        				}
-        			});
-        			
+
+                    //删除商品规格的JS代码
+
+                    /*
+                        1.动态获取cid值.
+                        2.发送ajax请求,获取商品分类的名称
+                        3.将名称在指定的位置进行展现
+                    */
+                    let cid = data.cid;
+                    $.get("/itemCat/findItemCatById",{id:cid},function(result){
+                        //获取商品分类名称
+                        let name = result.name;
+                        $("#itemeEditForm input[name='cid']").prev().text(name);
+                    })
+
+
         			KindEditorUtil.init({
         				"pics" : data.image,
         				"cid" : data.cid,
