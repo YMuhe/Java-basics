@@ -16,7 +16,7 @@ import java.util.List;
 @RestController	//返回的数据都是JSON数据.
 @RequestMapping("/item")
 public class ItemController {
-	
+
 	@Autowired
 	private ItemService itemService;
 
@@ -50,4 +50,6 @@ public class ItemController {
 			return SysResult.fail();
 		}*/
 	 }
+
+	 //添加测试数据AAA
 }
