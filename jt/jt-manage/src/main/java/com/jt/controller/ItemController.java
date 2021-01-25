@@ -47,8 +47,6 @@ public class ItemController {
 
 		 itemService.saveItem(item,itemDesc);
 		 return SysResult.success();
-
-
 		 /*try {
 			itemService.saveItem(item);
 			return SysResult.success();
