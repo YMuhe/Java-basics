@@ -17,7 +17,7 @@ import java.util.List;
 
 @Service
 public class ItemServiceImpl implements ItemService {
-	
+
 	@Autowired
 	private ItemMapper itemMapper;
 
@@ -51,6 +51,13 @@ public class ItemServiceImpl implements ItemService {
 		//item.setStatus(1).setCreated(date).setUpdated(date);
 		item.setStatus(1);
 		itemMapper.insert(item);
+	}
+
+	@Override
+	@Transactional
+	public void updateItem(Item item) {
+
+		itemMapper.updateById(item);
 	}
 
 
