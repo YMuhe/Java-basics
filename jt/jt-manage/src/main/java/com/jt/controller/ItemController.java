@@ -101,6 +101,7 @@ public class ItemController {
 
 		itemService.updateItemStatus(ids,status);
 		return SysResult.success();
+		
 	}
 
 
