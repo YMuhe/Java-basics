@@ -1,6 +1,7 @@
 package com.jt.controller;
 
 import com.jt.pojo.Item;
+import com.jt.pojo.ItemDesc;
 import com.jt.vo.EasyUITable;
 import com.jt.vo.SysResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +43,13 @@ public class ItemController {
 	 * 返回值:   SysResult对象
 	 */
 	 @RequestMapping("/save")
-	 public SysResult saveItem(Item item){
-		 itemService.saveItem(item);
+	 public SysResult saveItem(Item item, ItemDesc itemDesc){
+
+		 itemService.saveItem(item,itemDesc);
 		 return SysResult.success();
-		/*try {
+
+
+		 /*try {
 			itemService.saveItem(item);
 			return SysResult.success();
 		}catch (Exception e){
@@ -101,7 +105,7 @@ public class ItemController {
 
 		itemService.updateItemStatus(ids,status);
 		return SysResult.success();
-		
+
 	}
 
 

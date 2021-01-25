@@ -3,9 +3,10 @@ package com.jt.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jt.mapper.ItemDescMapper;
 import com.jt.pojo.Item;
+import com.jt.pojo.ItemDesc;
 import com.jt.vo.EasyUITable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,6 @@ import com.jt.mapper.ItemMapper;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,6 +22,8 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private ItemMapper itemMapper;
+	@Autowired
+	private ItemDescMapper itemDescMapper;
 
 	/**
 	 * MP分页相关说明:
@@ -46,9 +48,14 @@ public class ItemServiceImpl implements ItemService {
 
 	}
 
+	/**
+	 * 实现商品/商品分类的入库操作
+	 * @param item
+	 * @param itemDesc
+	 */
 	@Override
 	@Transactional	//添加事务控制
-	public void saveItem(Item item) {
+	public void saveItem(Item item, ItemDesc itemDesc) {
 		//Date date = new Date();
 		//item.setStatus(1).setCreated(date).setUpdated(date);
 		item.setStatus(1);
