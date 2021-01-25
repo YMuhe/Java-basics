@@ -1,7 +1,6 @@
 package com.jt.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -69,7 +68,6 @@ public class ItemServiceImpl implements ItemService {
 	 * @param ids
 	 */
 	@Override
-	@Transactional
 	public void deleteItems(Long[] ids) {
 
 		//itemMapper.deleteItems(ids);
@@ -77,21 +75,6 @@ public class ItemServiceImpl implements ItemService {
 		//参数中使用get方法获取数据
 		List idList = Arrays.asList(ids);
 		itemMapper.deleteBatchIds(idList);
-	}
-
-	//作业: 自己手写Sql完成该操作
-	//Sql: update tb_item set status=#{status},updated=#{updated}/now()
-	//where id in (id1,id2,id3.....)
-	@Override
-	@Transactional
-	public void updateItemStatus(Long[] ids, Integer status) {
-		//封装需要修改的数据
-		Item item = new Item();
-		item.setStatus(status);
-		//构建where条件
-		UpdateWrapper updateWrapper = new UpdateWrapper();
-		updateWrapper.in("id", Arrays.asList(ids));
-		itemMapper.update(item,updateWrapper);
 	}
 
 
