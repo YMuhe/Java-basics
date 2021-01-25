@@ -118,6 +118,12 @@ public class ItemServiceImpl implements ItemService {
 		itemMapper.update(item,updateWrapper);
 	}
 
+	@Override
+	public ItemDesc findItemDescById(Long itemId) {
+
+		return itemDescMapper.selectById(itemId);
+	}
+
 	/**
 	 * 1.方式1  查询所有的商品信息
 	 * 2.方式2  自己能否手写sql实现分页查询

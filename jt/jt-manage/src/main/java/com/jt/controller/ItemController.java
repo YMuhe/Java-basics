@@ -108,7 +108,20 @@ public class ItemController {
 
 	}
 
+	/**
+	 * 业务: 实现商品详情的获取
+	 * url:	 http://localhost:8091/item/query/item/desc/1474392229
+	 * 参数: itemId
+	 * 返回值: SysResult对象
+	 */
 
+	@RequestMapping("/query/item/desc/{itemId}")
+	public SysResult findItemDescById(@PathVariable Long itemId){
+
+		//根据Id查询商品详情
+		ItemDesc itemDesc = itemService.findItemDescById(itemId);
+		return SysResult.success(itemDesc);
+	}
 
 
 }

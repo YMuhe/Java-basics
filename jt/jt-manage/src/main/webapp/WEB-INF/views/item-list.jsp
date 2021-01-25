@@ -68,13 +68,14 @@
         			//3.利用load函数,将数据按照name属性的名称实现数据赋值. 实现回显
         			$("#itemeEditForm").form("load",data);
 
-        			// 加载商品描述
-        			$.getJSON('/item/query/item/desc/'+data.id,function(_data){
-        				if(_data.status == 200){
-        					//UM.getEditor('itemeEditDescEditor').setContent(_data.data.itemDesc, false);
-        					itemEditEditor.html(_data.data.itemDesc);
-        				}
-        			});
+        			// 加载商品描述  _data SysResult
+                    $.getJSON('/item/query/item/desc/'+data.id,function(_data){
+                        if(_data.status == 200){
+
+                            //从服务器中动态获取响应信息
+                            itemEditEditor.html(_data.data.itemDesc);
+                        }
+                    });
 
                     //删除商品规格的JS代码
 
