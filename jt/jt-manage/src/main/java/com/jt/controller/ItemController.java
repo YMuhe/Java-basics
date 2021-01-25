@@ -65,9 +65,9 @@ public class ItemController {
 	 * 返回值: SysResult对象
 	 */
 	@RequestMapping("update")
-	public SysResult updateItem(Item item){
+	public SysResult updateItem(Item item,ItemDesc itemDesc){
 
-		itemService.updateItem(item);
+		itemService.updateItem(item,itemDesc);
 		return SysResult.success();
 	}
 

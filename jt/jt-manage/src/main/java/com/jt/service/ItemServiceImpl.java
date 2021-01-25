@@ -79,9 +79,11 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	@Transactional
-	public void updateItem(Item item) {
+	public void updateItem(Item item, ItemDesc itemDesc) {
 
 		itemMapper.updateById(item);
+		itemDesc.setItemId(item.getId());
+		itemDescMapper.updateById(itemDesc);
 	}
 
 	/**
@@ -100,6 +102,7 @@ public class ItemServiceImpl implements ItemService {
 		//参数中使用get方法获取数据
 		List idList = Arrays.asList(ids);
 		itemMapper.deleteBatchIds(idList);
+		itemDescMapper.deleteBatchIds(idList);
 	}
 
 
