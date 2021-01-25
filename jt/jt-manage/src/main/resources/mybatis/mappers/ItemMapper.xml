@@ -31,10 +31,10 @@
 
 
 	<!--实现主键自动的回显!!!-->
-
-	<!--<insert id="xxxx" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-
-        </insert>-->
+	<insert id="insertItem" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO tb_item ( image, sell_point, price, created, num, title, barcode, updated, status, cid )
+		VALUES ( #{image}, #{sellPoint}, #{price}, #{created}, #{num}, #{title}, #{barcode}, #{updated}, #{status}, #{cid} )
+	</insert>
 
 
 

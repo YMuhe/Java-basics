@@ -16,4 +16,6 @@ public interface ItemMapper extends BaseMapper<Item>{
     List<Item> findItemByPage(int start, Integer rows);
     //能否利用注解的方式实现? 不可以,因为其中需要循环遍历 所以不能使用注解.
     void deleteItems(Long[] ids);
+
+    void insertItem(Item item);
 }

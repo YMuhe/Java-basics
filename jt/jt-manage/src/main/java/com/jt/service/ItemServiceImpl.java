@@ -71,7 +71,7 @@ public class ItemServiceImpl implements ItemService {
 		//item.setStatus(1).setCreated(date).setUpdated(date);
 		item.setStatus(1);
 		itemMapper.insert(item);	//实现商品入库操作
-
+		//itemMapper.insertItem(item);
 		//实现商品详情入库操作
 		itemDesc.setItemId(item.getId());
 		itemDescMapper.insert(itemDesc);
