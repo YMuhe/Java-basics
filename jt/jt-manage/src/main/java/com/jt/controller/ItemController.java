@@ -5,6 +5,7 @@ import com.jt.vo.EasyUITable;
 import com.jt.vo.SysResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jt.service.ItemService;
@@ -86,6 +87,19 @@ public class ItemController {
 	public SysResult deleteItems(Long... ids){
 
 		itemService.deleteItems(ids);
+		return SysResult.success();
+	}
+
+	/**
+	 * 业务需求: 实现商品上架/下架操作
+	 * URL地址:  /item/1   /item/2
+	 * 参数:  status状态码,ids参数
+	 * 返回值: SysResult对象
+	 */
+	@RequestMapping("{status}")
+	public SysResult xx(@PathVariable Integer status,Long[] ids){
+
+		itemService.updateItemStatus(ids,status);
 		return SysResult.success();
 	}
 

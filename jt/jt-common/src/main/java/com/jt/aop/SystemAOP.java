@@ -10,6 +10,7 @@ public class SystemAOP {
 
     @ExceptionHandler({RuntimeException.class})
     public Object result(Exception e){
+
         e.printStackTrace();
         return SysResult.fail();
     }

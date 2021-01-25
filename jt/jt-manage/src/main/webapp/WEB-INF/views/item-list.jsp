@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<table class="easyui-datagrid" id="itemList" title="商品列表" 
+<table class="easyui-datagrid" id="itemList" title="商品列表"
        data-options="singleSelect:false,fitColumns:true,collapsible:true,pagination:true,url:'/item/query',method:'get',pageSize:20,toolbar:toolbar">
     <thead>
         <tr>
@@ -37,7 +37,7 @@
     	ids = ids.join(",");
     	return ids;
     }
-    
+
     var toolbar = [{
         text:'新增',
         iconCls:'icon-add',
@@ -58,7 +58,7 @@
         		$.messager.alert('提示','只能选择一个商品!');
         		return ;
         	}
-        	
+
         	$("#itemEditWindow").window({
         		onLoad :function(){
         			//1.获取用户选中的记录
@@ -67,7 +67,7 @@
         			data.priceView = KindEditorUtil.formatPrice(data.price);
         			//3.利用load函数,将数据按照name属性的名称实现数据赋值. 实现回显
         			$("#itemeEditForm").form("load",data);
-        			
+
         			// 加载商品描述
         			$.getJSON('/item/query/item/desc/'+data.id,function(_data){
         				if(_data.status == 200){
@@ -85,7 +85,9 @@
                     */
                     let cid = data.cid;
                     $.get("/itemCat/findItemCatById",{id:cid},function(result){
-                        //获取商品分类名称
+                        //获取商品分类名称  text() 文本内容   val value值
+                        //<input name="xx" value="xxx"/>标签赋值???  val
+                        //<div>xxxxxxx</div> text()
                         let name = result.name;
                         $("#itemeEditForm input[name='cid']").prev().text(name);
                     })
@@ -96,7 +98,7 @@
         				"cid" : data.cid,
         				fun:function(node){
         					KindEditorUtil.changeItemParam(node, "itemeEditForm");
-        				} 
+        				}
         			});
         		}
         	}).window("open");
@@ -105,6 +107,7 @@
         text:'删除',
         iconCls:'icon-cancel',
         handler:function(){
+            //获取所有选中的节点
         	var ids = getSelectionsIds();
         	if(ids.length == 0){
         		$.messager.alert('提示','未选中商品!');
@@ -138,7 +141,7 @@
         	$.messager.confirm('确认','确定下架ID为 '+ids+' 的商品吗？',function(r){
         	    if (r){
         	    	var params = {"ids":ids};
-                	$.post("/item/instock",params, function(data){
+                	$.post("/item/2",params, function(data){
             			if(data.status == 200){
             				$.messager.alert('提示','下架商品成功!',undefined,function(){
             					$("#itemList").datagrid("reload");
@@ -160,7 +163,7 @@
         	$.messager.confirm('确认','确定上架ID为 '+ids+' 的商品吗？',function(r){
         	    if (r){
         	    	var params = {"ids":ids};
-                	$.post("/item/reshelf",params, function(data){
+                	$.post("/item/1",params, function(data){
             			if(data.status == 200){
             				$.messager.alert('提示','上架商品成功!',undefined,function(){
             					$("#itemList").datagrid("reload");

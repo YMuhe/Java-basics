@@ -26,12 +26,13 @@ public class IndexController {
 	 * 	DELETE	删除操作
 	 * 				  /page/item-list
 	 * 				  /page/item-add
+	 * 				  /page/item-edit
 	 * */
 	@RequestMapping("/page/{moduleName}")	//可以接收任意请求类型
 	//@GetMapping
 	//@PostMapping
 	public String module(@PathVariable String moduleName) {
-		
+
 		return moduleName;
 	}
 }
