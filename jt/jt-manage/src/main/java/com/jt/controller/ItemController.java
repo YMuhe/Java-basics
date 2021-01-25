@@ -39,7 +39,7 @@ public class ItemController {
 	/**
 	 * 业务说明:实现商品的入库操作
 	 * URL地址:	http://localhost:8091/item/save
-	 * 请求参数: 整个form表单 利用对象进行接收
+	 * 请求参数: 整个form表单 利用对象进行接收/itemDesc属性
 	 * 返回值:   SysResult对象
 	 */
 	 @RequestMapping("/save")

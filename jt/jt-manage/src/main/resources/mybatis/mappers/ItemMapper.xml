@@ -30,6 +30,11 @@
 	</delete>
 
 
+	<!--实现主键自动的回显!!!-->
+
+	<!--<insert id="xxxx" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+
+        </insert>-->
 
 
 

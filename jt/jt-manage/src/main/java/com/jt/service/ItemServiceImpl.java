@@ -52,6 +52,17 @@ public class ItemServiceImpl implements ItemService {
 	 * 实现商品/商品分类的入库操作
 	 * @param item
 	 * @param itemDesc
+	 * 难点分析:
+	 * 		1.item表主键自增  入库之后才会有主键信息.
+	 * 		2.itemDesc表 要求必须写主键. itemDesc中的主键要求和item中的值一致.
+	 * 想法:
+	 * 		1.刚完成入库之后,再次查询数据库记录,获取主键 之后为itemDesc属性赋值  不安全
+	 * 		2.让数据库完成入库操作时,实现主键的动态回显?
+	 *
+	 * 实际案例:
+	 * 		1.由于实现使用的是MP方式操作数据库.利用对象的方式操作
+	 * 	数据库,所以入库之后,自动的完成了回显功能.
+	 * 	该功能是MP中主键自增的设定方法
 	 */
 	@Override
 	@Transactional	//添加事务控制
@@ -59,7 +70,11 @@ public class ItemServiceImpl implements ItemService {
 		//Date date = new Date();
 		//item.setStatus(1).setCreated(date).setUpdated(date);
 		item.setStatus(1);
-		itemMapper.insert(item);
+		itemMapper.insert(item);	//实现商品入库操作
+
+		//实现商品详情入库操作
+		itemDesc.setItemId(item.getId());
+		itemDescMapper.insert(itemDesc);
 	}
 
 	@Override
