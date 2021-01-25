@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.jt.mapper.ItemMapper;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -58,6 +59,22 @@ public class ItemServiceImpl implements ItemService {
 	public void updateItem(Item item) {
 
 		itemMapper.updateById(item);
+	}
+
+	/**
+	 * 要求使用2种方式实现
+	 * 		1.手写Sql的方式
+	 * 		2.利用MP的方式实现
+	 * @param ids
+	 */
+	@Override
+	public void deleteItems(Long[] ids) {
+
+		//itemMapper.deleteItems(ids);
+		//如果需要使用MP的方式实现参数的传递,则需要封装为List集合
+		//参数中使用get方法获取数据
+		List idList = Arrays.asList(ids);
+		itemMapper.deleteBatchIds(idList);
 	}
 
 

@@ -8,4 +8,8 @@ public interface ItemService {
     EasyUITable findItemByPage(Integer page, Integer rows);
 
     void saveItem(Item item);
+
+    void updateItem(Item item);
+
+    void deleteItems(Long[] ids);
 }
