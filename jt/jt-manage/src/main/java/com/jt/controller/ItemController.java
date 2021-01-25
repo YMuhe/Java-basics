@@ -97,7 +97,7 @@ public class ItemController {
 	 * 返回值: SysResult对象
 	 */
 	@RequestMapping("{status}")
-	public SysResult xx(@PathVariable Integer status,Long[] ids){
+	public SysResult updateStatus(@PathVariable Integer status,Long[] ids){
 
 		itemService.updateItemStatus(ids,status);
 		return SysResult.success();
