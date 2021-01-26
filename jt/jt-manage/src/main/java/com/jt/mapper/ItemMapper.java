@@ -15,6 +15,7 @@ public interface ItemMapper extends BaseMapper<Item>{
     @Select("SELECT * FROM tb_item ORDER BY updated DESC  LIMIT #{start},#{rows}")
     List<Item> findItemByPage(int start, Integer rows);
     //能否利用注解的方式实现? 不可以,因为其中需要循环遍历 所以不能使用注解.
+    //Mybatis高版本会自动的添加@Param注解 前提参数必须为多个.
     void deleteItems(Long[] ids);
 
     void insertItem(Item item);
