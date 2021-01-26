@@ -1,6 +1,8 @@
 package com.jt.service;
 
 import com.jt.vo.ImageVO;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,12 +22,15 @@ import java.util.UUID;
  * 时间 2021/1/26
  */
 @Service
+@PropertySource(value = "classpath:/properties/image.properties",encoding = "UTF-8")
 public class FileServiceImpl implements FileService{
 
     //方式1: 利用集合实现数据的校验
     private static Set<String> typeSet = new HashSet<>();
-    private String localDirPath = "E:/JT_IMAGE";
-    private String urlPath = "http://image.jt.com";
+    @Value("${image.localDirPath}")
+    private String localDirPath;    // = "E:/JT_IMAGE";
+    @Value("${image.urlPath}")
+    private String urlPath;         // = "http://image.jt.com";
 
     static {//静态代码块 为属性赋值,初始化实例对象的.
         typeSet.add(".jpg");
