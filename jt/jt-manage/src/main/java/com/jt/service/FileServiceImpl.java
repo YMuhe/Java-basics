@@ -6,7 +6,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,6 +22,7 @@ public class FileServiceImpl implements FileService{
 
     //方式1: 利用集合实现数据的校验
     private static Set<String> typeSet = new HashSet<>();
+    private String localDirPath = "E:/JT_IMAGE";
 
     static {//静态代码块 为属性赋值,初始化实例对象的.
         typeSet.add(".jpg");
@@ -58,11 +62,24 @@ public class FileServiceImpl implements FileService{
             BufferedImage bufferedImage = ImageIO.read(uploadFile.getInputStream());
             int width = bufferedImage.getWidth();
             int height = bufferedImage.getHeight();
-            if(width == 0 || height ==0){
+            if(width==0 || height==0){
                 return ImageVO.fail();
             }
 
-            //图片的类型 没有错的!!
+            //3.实现分目录存储
+            //3.1 动态生成hashcode编码 之后2位一隔 生成多级目录.目录层级太深 笛卡尔积较大 遍历不便
+            //3.2 可以动态以当前的时间为存储的目录结构 yyyy/MM/dd
+            String dateDirPath =
+                new SimpleDateFormat("/yyyy/MM/dd/").format(new Date());
+
+            //文件存储的目录  E:/JT_IMAGE/2021/01/26/
+            String fileDirPath = localDirPath + dateDirPath;
+            File fileDir = new File(fileDirPath);
+            if(!fileDir.exists()){  //判断文件目录是否存在
+
+                fileDir.mkdirs();  //创建目录
+            }
+
 
         } catch (IOException e) {
             e.printStackTrace();
