@@ -4,6 +4,9 @@ import com.jt.vo.ImageVO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,9 +38,14 @@ public class FileServiceImpl implements FileService{
      * 4.如何防止文件重名???
      * @param uploadFile
      * @return
+     *
+     * 正则语法:
+     *  1.{n} 指定次数
+     *  2.[a-z] 字符必须满足集合中的一个元素
+     *  3.(a|n|z) 分组的写法  满足a或者n或者z
      */
     @Override
-    public ImageVO upload(MultipartFile uploadFile) {
+    public ImageVO upload(MultipartFile uploadFile){
         //1.校验文件类型  abc.jpg
         String fileName = uploadFile.getOriginalFilename().toLowerCase();
         //1.1 利用正则表达式校验是否满足图片格式要求
@@ -45,6 +53,21 @@ public class FileServiceImpl implements FileService{
             return ImageVO.fail();
         }
 
+        //2.校验是否为图片对象
+        try {
+            BufferedImage bufferedImage = ImageIO.read(uploadFile.getInputStream());
+            int width = bufferedImage.getWidth();
+            int height = bufferedImage.getHeight();
+            if(width == 0 || height ==0){
+                return ImageVO.fail();
+            }
+
+            //图片的类型 没有错的!!
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ImageVO.fail();
+        }
 
         return null;
     }
