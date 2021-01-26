@@ -25,6 +25,10 @@ public class FileServiceImpl implements FileService{
 
 
     /**
+     * 知识点:
+     *      1.代码的安全性
+     *      2.多问一下自己如果什么什么 应该怎么办??
+     *
      * 文件上传业务说明:
      * 1.校验文件上传是否为图片类型? jpg|png|gif....
      * 2.为了防止恶意程序 木马.exe.jpg
@@ -35,12 +39,20 @@ public class FileServiceImpl implements FileService{
      */
     @Override
     public ImageVO upload(MultipartFile uploadFile) {
-        //1.校验是否为图片类型   BUG 一般条件下不出问题,当传入某些特定数据时 可能出问题
-        //1.1 获取用户上传文件的类型   a.jpg
+        //1.校验是否为图片类型
         String fileName = uploadFile.getOriginalFilename();
-        //1.2获取图片类型
-        String fileType = fileName.substring(fileName.lastIndexOf("."));
-        //1.3校验是否为图片类型
+        //1.1由于大小写问题 导致校验异常bug 所有全部转化为小写
+        fileName = fileName.toLowerCase();
+        //1.2截取下标
+        int index = fileName.lastIndexOf(".");
+        //1.3 如果下标为0表示没有后缀 应该提前结束
+        if(index == 0){
+            //没有后缀.程序应该提前结束
+            return ImageVO.fail();
+        }
+
+        //1.4校验是否为图片类型
+        String fileType = fileName.substring(index);
         if(!typeSet.contains(fileType)){
             //图片类型不符
             return ImageVO.fail();
