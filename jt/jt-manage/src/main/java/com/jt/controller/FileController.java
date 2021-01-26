@@ -1,5 +1,8 @@
 package com.jt.controller;
 
+import com.jt.service.FileService;
+import com.jt.vo.ImageVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +16,8 @@ import java.io.*;
 @RestController     //表示返回的数据为JSON
 public class FileController {
 
+    @Autowired
+    private FileService fileService;
     /**
      * url地址:/file
      * 参数: fileImage
@@ -51,4 +56,22 @@ public class FileController {
 
         return "文件上传成功!!!!";
     }
+
+    /**
+     * 实现文件上传
+     * 1.页面URL地址:http://localhost:8091/pic/upload?dir=image
+     * 2.参数信息:   uploadFile
+     * 3.返回值:     ImageVO对象
+     */
+    @RequestMapping("/pic/upload")
+    public ImageVO uploadFile(MultipartFile uploadFile){
+
+        return fileService.upload(uploadFile);
+    }
+
+
+
+
+
+
 }
