@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * @author 刘昱江
@@ -80,13 +81,23 @@ public class FileServiceImpl implements FileService{
                 fileDir.mkdirs();  //创建目录
             }
 
+            //4.利用UUID动态生图片名称   uuid.jpg
+            String uuid =
+                    UUID. randomUUID().toString().replace("-", "");
+            //abc.jpg
+            String fileType = fileName.substring(fileName.lastIndexOf("."));
+            String newFileName = uuid + fileType;
+
+            //5.实现文件上传
+            File realFile = new File(fileDirPath + newFileName);
+            uploadFile.transferTo(realFile);
+
+            return ImageVO.success(null,null,null);
 
         } catch (IOException e) {
             e.printStackTrace();
             return ImageVO.fail();
         }
-
-        return null;
     }
 
 
