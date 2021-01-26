@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,6 +25,7 @@ public class FileServiceImpl implements FileService{
     //方式1: 利用集合实现数据的校验
     private static Set<String> typeSet = new HashSet<>();
     private String localDirPath = "E:/JT_IMAGE";
+    private String urlPath = "http://image.jt.com";
 
     static {//静态代码块 为属性赋值,初始化实例对象的.
         typeSet.add(".jpg");
@@ -87,12 +89,15 @@ public class FileServiceImpl implements FileService{
             //abc.jpg
             String fileType = fileName.substring(fileName.lastIndexOf("."));
             String newFileName = uuid + fileType;
-
             //5.实现文件上传
             File realFile = new File(fileDirPath + newFileName);
             uploadFile.transferTo(realFile);
 
-            return ImageVO.success(null,null,null);
+            //6.编辑图片的虚拟路径
+            //6.1磁盘地址: E:\JT_IMAGE\2021\01\26\1b0e435933ac42cabec53b20ffbcfe90.png
+            //6.2虚拟地址  http://image.jt.com\2021\01\26\1b0e435933ac42cabec53b20ffbcfe90.png
+            String url = urlPath + dateDirPath + newFileName;
+            return ImageVO.success(url,width,height);
 
         } catch (IOException e) {
             e.printStackTrace();
