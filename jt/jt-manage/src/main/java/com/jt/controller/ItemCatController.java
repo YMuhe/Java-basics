@@ -41,5 +41,6 @@ public class ItemCatController {
         return itemCatService.findItemCatList(parentId);
     }
 
+    //http://localhost:8081/item/cat/queryItemName
 
 }
