@@ -21,8 +21,4 @@ public class PortController {
         return "当前端口号:"+port;
     }
 
-
-
-
-
 }
