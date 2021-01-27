@@ -1,0 +1,12 @@
+#@SwitchHosts! {"url": null, "icon_idx": 0, "title": "\u5f53\u524d\u7cfb\u7edf hosts"}
+
+#配置Linux环境下的服务
+#192.168.126.129       image.jt.com
+#192.168.126.129       manage.jt.com
+
+# 京淘电商环境
+127.0.0.1       image.jt.com
+127.0.0.1       manage.jt.com
+127.0.0.1       www.jt.com
+127.0.0.1       sso.jt.com
+127.0.0.1  	localhost
