@@ -6,14 +6,13 @@
     <file url="file://$PROJECT_DIR$/jt/jt-common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jt/jt-manage" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jt/jt-manage/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/nginx配置/nginx.conf" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/nginx配置/nginx.conf" charset="GBK" />
     <file url="file://$PROJECT_DIR$/springboot_demo1" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot_demo1/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot_demo2" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot_demo2/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot_demo3" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot_demo3/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/资料/nginx配置/nginx.conf" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
