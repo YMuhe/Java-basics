@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jt.mapper.ItemMapper">
+	<!--留着以后用  -->
+
+	<!--实现商品的删除操作
+		Mybatis参数传递的规则:
+		 1.单值传参
+		 void deleteItems(String name);
+		 Mybatis的源码中要求单值传参,取值时通过下标的方式取值(取值值参数名称可以任意..)
+
+		 2.多值传参需求
+		 void deleteItems(String name,String sex);
+		 Mybatis高版本的源码中做了规定,自动的将多值转化为单值(封装为MAP集合K-V)
+
+		 3.如果将来参数格式如下时,采用对应的方式变量
+		 	1.单值传参   Array类型  collection="array"
+		 	2.单值传参   List类型   collection="list"
+		 	3.单值传参   Map集合    collection="map中的key"
+	-->
+
+	<delete id="deleteItems">
+		delete from tb_item where id in (
+			<foreach collection="array" item="id" separator=",">
+				#{id}
+			</foreach>
+		)
+	</delete>
+
+
+	<!--实现主键自动的回显!!!-->
+	<insert id="insertItem" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO tb_item ( image, sell_point, price, created, num, title, barcode, updated, status, cid )
+		VALUES ( #{image}, #{sellPoint}, #{price}, #{created}, #{num}, #{title}, #{barcode}, #{updated}, #{status}, #{cid} )
+	</insert>
+
+
+
+
+</mapper>
