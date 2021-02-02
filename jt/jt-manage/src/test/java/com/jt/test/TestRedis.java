@@ -1,12 +1,27 @@
 package com.jt.test;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Transaction;
 import redis.clients.jedis.params.SetParams;
 
-//@SpringBootTest //目的:动态获取spring容器中的数据
+@SpringBootTest //目的:动态获取spring容器中的数据
 public class TestRedis {
+
+    @Autowired
+    private Jedis jedis;
+
+    @Test
+    public void testSpringJedis(){
+        jedis.set("jedis", "spring对象测试");
+        System.out.println(jedis.get("jedis"));
+    }
+
+
+
+
 
     /**
      * 主要目的测试程序远程操作Redis是否有效
@@ -95,5 +110,20 @@ public class TestRedis {
         Jedis jedis = new Jedis("192.168.126.129",6379);
         jedis.lpush("list", "1","2","3");
         System.out.println(jedis.rpop("list")); //队列
+    }
+
+    //弱事务控制
+    @Test
+    public void testTx(){
+        Jedis jedis = new Jedis("192.168.126.129",6379);
+        Transaction transaction = jedis.multi();  //开启事务
+        try {
+            transaction.set("k", "k");
+            transaction.set("c", "c");
+            transaction.exec();     //提交事务
+        }catch (Exception e){
+            e.printStackTrace();
+            transaction.discard();  //回滚事务
+        }
     }
 }
