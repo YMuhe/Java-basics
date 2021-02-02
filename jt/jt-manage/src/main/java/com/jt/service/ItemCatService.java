@@ -9,4 +9,6 @@ public interface ItemCatService {
     ItemCat findItemCatById(Long id);
 
     List<EasyUITree> findItemCatList(Long parentId);
+
+    List<EasyUITree> findItemCatCache(Long parentId);
 }

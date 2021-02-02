@@ -38,7 +38,9 @@ public class ItemCatController {
     public List<EasyUITree> findItemCatList(Long id){
         //1.查询一级商品分类信息
         Long parentId = (id==null?0L:id);
-        return itemCatService.findItemCatList(parentId);
+        //return itemCatService.findItemCatList(parentId);
+        //利用redis缓存查询数据
+        return itemCatService.findItemCatCache(parentId);
     }
 
     //http://localhost:8081/item/cat/queryItemName

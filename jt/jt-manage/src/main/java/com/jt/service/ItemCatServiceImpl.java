@@ -6,6 +6,7 @@ import com.jt.pojo.ItemCat;
 import com.jt.vo.EasyUITree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,5 +47,15 @@ public class ItemCatServiceImpl implements ItemCatService{
             treeList.add(easyUITree);
         }
         return treeList;
+    }
+
+    @Autowired
+    private Jedis jedis;
+
+    //实现商品分类的缓存操作!!!
+    @Override
+    public List<EasyUITree> findItemCatCache(Long parentId) {
+
+        return null;
     }
 }
