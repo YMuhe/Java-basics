@@ -89,4 +89,11 @@ public class TestRedis {
         jedis.hset("达内", "users", "[{id:1,name:'张三'},{id:2,name:'李四'}]");
         System.out.println(jedis.hget("达内", "dept"));
     }
+
+    @Test
+    public void testList(){
+        Jedis jedis = new Jedis("192.168.126.129",6379);
+        jedis.lpush("list", "1","2","3");
+        System.out.println(jedis.rpop("list")); //队列
+    }
 }
