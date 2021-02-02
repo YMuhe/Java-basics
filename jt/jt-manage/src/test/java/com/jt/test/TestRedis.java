@@ -1,8 +1,10 @@
 package com.jt.test;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import redis.clients.jedis.Jedis;
 
+//@SpringBootTest //目的:动态获取spring容器中的数据
 public class TestRedis {
 
     /**
@@ -42,6 +44,24 @@ public class TestRedis {
         System.out.println(jedis.ttl("b"));
     }
 
+    //原子性
+    @Test
+    public void test02(){
+        Jedis jedis = new Jedis("192.168.126.129", 6379);
+        jedis.set("c", "测试redis");
+        //需求1: 如果数据不存在时,才会为数据赋值.
+        jedis.setnx("d","测试setnx方法");
+        System.out.println(jedis.get("d"));
+
+        //需求2: 需要为数据添加超时时间,同时满足原子性的要求
+                //jedis.set("s", "为数据添加超时时间");
+                //有时程序中断了,下列的方法将不会执行.
+                //jedis.expire("s", 20);
+                //System.out.println(jedis.ttl("s"));
+        //为数据添加超时时间
+        jedis.setex("s", 20, "为数据添加超时111");
+        System.out.println("获取超时时间:"+jedis.ttl("s"));
+    }
 
 
 
