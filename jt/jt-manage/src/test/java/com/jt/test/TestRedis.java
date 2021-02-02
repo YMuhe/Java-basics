@@ -81,4 +81,12 @@ public class TestRedis {
         jedis.set("a", "测试方法",setParams);
         System.out.println(jedis.get("a"));
     }
+
+    @Test
+    public void testHash(){
+        Jedis jedis = new Jedis("192.168.126.129",6379);
+        jedis.hset("达内", "dept", "财务部");
+        jedis.hset("达内", "users", "[{id:1,name:'张三'},{id:2,name:'李四'}]");
+        System.out.println(jedis.hget("达内", "dept"));
+    }
 }
