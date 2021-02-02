@@ -3,6 +3,7 @@ package com.jt.test;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.params.SetParams;
 
 //@SpringBootTest //目的:动态获取spring容器中的数据
 public class TestRedis {
@@ -63,7 +64,21 @@ public class TestRedis {
         System.out.println("获取超时时间:"+jedis.ttl("s"));
     }
 
-
-
-
+    /**
+     *  需求: 如果数据存在才修改,并且为数据添加超时时间,满足原子性要求
+     *  SetParams:
+     *          XX: 数据存在时赋值.
+     *          NX: 数据不存在时赋值
+     *          EX: 添加超时时间单位秒
+     *          PX: 添加超时时间单位毫秒
+     */
+    @Test
+    public void test03(){
+        Jedis jedis = new Jedis("192.168.126.129", 6379);
+        jedis.flushAll();
+        SetParams setParams = new SetParams();
+        setParams.xx().ex(20);
+        jedis.set("a", "测试方法",setParams);
+        System.out.println(jedis.get("a"));
+    }
 }
