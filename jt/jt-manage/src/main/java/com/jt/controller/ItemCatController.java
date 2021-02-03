@@ -1,5 +1,6 @@
 package com.jt.controller;
 
+import com.jt.anno.CacheFind;
 import com.jt.pojo.ItemCat;
 import com.jt.service.ItemCatService;
 import com.jt.vo.EasyUITree;
@@ -23,6 +24,7 @@ public class ItemCatController {
      * 返回值结果: itemCat对象
      */
     @RequestMapping("/findItemCatById")
+    @CacheFind(key = "ITEMCAT_ID")
     public ItemCat findItemCatById(Long id){
 
         return itemCatService.findItemCatById(id);

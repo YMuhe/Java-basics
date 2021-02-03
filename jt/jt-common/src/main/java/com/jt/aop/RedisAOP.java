@@ -53,8 +53,8 @@ public class RedisAOP {
         if(jedis.exists(key)){
             String json = jedis.get(key);
             MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+            //获取返回值类型
             Class returnType = methodSignature.getReturnType();
-
             result = ObjectMapperUtil.toObj(json,returnType);
             System.out.println("AOP查询redis缓存");
 
