@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -50,6 +51,12 @@ public class RedisAOP {
 
         //2.校验是否有值
         if(jedis.exists(key)){
+            String json = jedis.get(key);
+            MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+            Class returnType = methodSignature.getReturnType();
+
+            result = ObjectMapperUtil.toObj(json,returnType);
+            System.out.println("AOP查询redis缓存");
 
         }else{
             //redis中没有数据,所以需要查询数据库,将数据保存到缓存中
@@ -62,7 +69,7 @@ public class RedisAOP {
                 }else{
                     jedis.set(key,json);
                 }
-                System.out.println("AOP查询redis缓存");
+                System.out.println("AOP查询数据库");
             } catch (Throwable throwable) {
                 throwable.printStackTrace();
             }
