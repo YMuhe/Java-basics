@@ -1,6 +1,7 @@
 package com.jt.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.jt.anno.CacheFind;
 import com.jt.mapper.ItemCatMapper;
 import com.jt.pojo.ItemCat;
 import com.jt.util.ObjectMapperUtil;
@@ -18,6 +19,9 @@ public class ItemCatServiceImpl implements ItemCatService{
     @Autowired
     private ItemCatMapper itemCatMapper;
 
+    @Autowired(required = false)    //该项不是必须注入的 spring容器启动时能注入则注入,注入不了则跳过
+    private Jedis jedis;
+
 
     @Override
     public ItemCat findItemCatById(Long id) {
@@ -31,6 +35,7 @@ public class ItemCatServiceImpl implements ItemCatService{
      * @return
      */
     @Override
+    @CacheFind(key = "ITEMCAT_PARENTID")    //标识业务名称一般都是大写的
     public List<EasyUITree> findItemCatList(Long parentId) {
         //2.定义VO的返回值
         List<EasyUITree> treeList = new ArrayList<>();
@@ -49,9 +54,6 @@ public class ItemCatServiceImpl implements ItemCatService{
         }
         return treeList;
     }
-
-    @Autowired
-    private Jedis jedis;
 
     /**
      * 原理说明:
