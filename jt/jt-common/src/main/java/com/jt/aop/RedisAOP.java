@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.ShardedJedis;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -27,7 +28,8 @@ import java.util.Arrays;
 public class RedisAOP {
 
     @Autowired
-    private Jedis jedis;
+    //private Jedis jedis;          //使用单台redis
+    private ShardedJedis jedis;     //使用redis分片机制
 
     /*
     * 实现AOP业务调用
