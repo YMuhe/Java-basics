@@ -15,7 +15,6 @@ public class TestSentinel {
         //定义哨兵的集合信息
         Set<String> sentinels = new HashSet<>();
         sentinels.add("192.168.126.129:26379");
-
         //定义链接池信息
         JedisPoolConfig poolConfig = new JedisPoolConfig();
         poolConfig.setMaxTotal(200);    //链接池 最多200个链接
