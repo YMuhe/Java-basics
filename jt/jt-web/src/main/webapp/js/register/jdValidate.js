@@ -601,7 +601,7 @@ function checkPin(option) {
             	dataType : "jsonp",
             	success : function(data) {
                     checkpin = data.data?"1":"0";
-                    if (!false) {
+                    if (!data.data) {
                         validateSettings.succeed.run(option);
                         namestate = true;
                     }else {
