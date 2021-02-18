@@ -1,9 +1,15 @@
 package com.jt.controller;
 
+import com.jt.pojo.User;
+import com.jt.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -19,4 +25,20 @@ public class UserController {
 
         return moduleName;
     }
+
+    /**
+     * httpClient代码测试
+     * http://www.jt.com/user/findAll
+     */
+     @Autowired
+     private UserService userService;
+
+     @RequestMapping("/findAll")
+     @ResponseBody
+     public List<User> findAll(){
+
+        return userService.findAll();
+     }
+
+
 }

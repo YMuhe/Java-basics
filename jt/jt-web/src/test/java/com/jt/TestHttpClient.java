@@ -20,8 +20,9 @@ public class TestHttpClient {
      * 4.发送请求获取响应的结果.response
      * 5.判断响应是否正确. 200表示请求正确,获取响应的结果.
      * 6.解析服务器返回值.获取有效数据
+     * 在java代码中发起http请
      */
-    @Test//在java代码中发起http请
+    @Test
     public void testGet() throws IOException {
         HttpClient httpClient = HttpClients.createDefault();
         String url = "https://www.cctv.com/";
