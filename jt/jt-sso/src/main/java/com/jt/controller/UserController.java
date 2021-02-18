@@ -35,10 +35,6 @@ public class UserController {
      }
 
 
-
-
-
-
     /**
      * 测试: 要求查询user表中的所有的数据
      */

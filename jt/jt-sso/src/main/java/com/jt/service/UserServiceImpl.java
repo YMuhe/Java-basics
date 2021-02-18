@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService{
         queryWrapper.eq(column,param);
         int count = userMapper.selectCount(queryWrapper);//0|1
         //return count>0?true:false;
+        //int a = 1/0;
         return count>0;
     }
 }
