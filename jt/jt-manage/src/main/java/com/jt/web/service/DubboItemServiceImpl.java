@@ -16,10 +16,13 @@ public class DubboItemServiceImpl implements DubboItemService {
     @Autowired
     private ItemDescMapper itemDescMapper;
 
+
+
+
     //查询商品信息
     @Override
     public Item findItemById(Long itemId) {
-
+        System.out.println("测试代码!!!!");
         return itemMapper.selectById(itemId);
     }
 

@@ -27,7 +27,6 @@ public class ItemController {
      */
     @RequestMapping("/items/{itemId}")
     public String findItemById(@PathVariable Long itemId, Model model){
-
         Item item = itemService.findItemById(itemId);
         ItemDesc itemDesc = itemService.findItemDescById(itemId);
         //需要将数据保存到域对象中
