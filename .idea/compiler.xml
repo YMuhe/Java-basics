@@ -9,14 +9,23 @@
         <outputRelativeToContentRoot value="true" />
         <module name="jt-manage" />
         <module name="springboot_demo2" />
+        <module name="dubbo-jt-demo-provider" />
         <module name="jt-sso" />
+        <module name="dubbo-jt-demo-provider2" />
         <module name="jt-web" />
+        <module name="dubbo-jt-demo-consumer" />
         <module name="springboot_demo3" />
         <module name="jt-common" />
         <module name="springboot_demo1" />
+        <module name="dubbo-jt-demo-interface" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="dubbo-jt" target="1.8" />
+      <module name="dubbo-jt-demo-consumer" target="1.8" />
+      <module name="dubbo-jt-demo-interface" target="1.8" />
+      <module name="dubbo-jt-demo-provider" target="1.8" />
+      <module name="dubbo-jt-demo-provider2" target="1.8" />
       <module name="jt" target="1.8" />
       <module name="jt-common" target="1.8" />
       <module name="jt-manage" target="1.8" />
@@ -29,6 +38,10 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="dubbo-jt-demo-consumer" options="-parameters" />
+      <module name="dubbo-jt-demo-interface" options="-parameters" />
+      <module name="dubbo-jt-demo-provider" options="-parameters" />
+      <module name="dubbo-jt-demo-provider2" options="-parameters" />
       <module name="jt-common" options="-parameters" />
       <module name="jt-manage" options="-parameters" />
       <module name="jt-sso" options="-parameters" />
