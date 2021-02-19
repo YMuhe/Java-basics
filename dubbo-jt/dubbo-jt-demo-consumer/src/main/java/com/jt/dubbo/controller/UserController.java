@@ -13,9 +13,8 @@ import com.jt.dubbo.service.UserService;
 @RestController
 public class UserController {
 	
-	////利用dubbo的方式为接口创建代理对象 利用rpc调用
-	
-	@Reference(loadbalance="leastactive")	
+	//利用dubbo的方式为接口创建代理对象 利用rpc调用
+	@Reference(loadbalance = "roundrobin")
 	private UserService userService; 
 	
 	/**
