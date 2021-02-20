@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import redis.clients.jedis.JedisCluster;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,8 @@ public class UserController {
 
     @Reference(check = false)
     private DubboUserService dubboUserService;
+    @Autowired
+    private JedisCluster jedisCluster;
 
     /**
      * 1.注册:http://www.jt.com/user/register.html   页面名称:register.html
@@ -119,6 +122,44 @@ public class UserController {
         response.addCookie(cookie);
         return SysResult.success();
     }
+
+
+    /**
+     * 实现用户退出操作
+     * url地址: http://www.jt.com/user/logout.html
+     * 返回值:  重定向到系统首页
+     */
+
+   /* @RequestMapping("/logout")
+    public String logout(HttpServletRequest request,HttpServletResponse response){
+        //删除redis中的记录.  key-value   获取key   Cookie中有key  先获取cookie
+        Cookie[] cookies = request.getCookies();
+        if(cookies !=null && cookies.length >0 ){
+            String ticket = null;
+            for (Cookie cookie : cookies){
+                if("JT_TICKET".equals(cookie.getName())){
+                    ticket = cookie.getValue();
+                    //删除cookie
+                    cookie.setMaxAge(0);
+                    cookie.setPath("/");
+                    cookie.setDomain("jt.com");
+                    response.addCookie(cookie);
+                    break;
+                }
+            }
+
+            //删除redis
+            if(StringUtils.hasLength(ticket)){
+                jedisCluster.del(ticket);
+            }
+
+        }
+
+        return "redirect:/"; //代表缺省值
+    }*/
+
+
+
 
 
 }
