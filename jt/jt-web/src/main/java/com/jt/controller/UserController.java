@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.jt.pojo.User;
 import com.jt.service.DubboUserService;
 import com.jt.service.UserService;
+import com.jt.util.CookieUtil;
 import com.jt.vo.SysResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -129,6 +130,23 @@ public class UserController {
      * url地址: http://www.jt.com/user/logout.html
      * 返回值:  重定向到系统首页
      */
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request,HttpServletResponse response){
+
+        String ticket = CookieUtil.getCookieValue(request, "JT_TICKET");
+        if(StringUtils.hasLength(ticket)){
+            //删除redis
+            jedisCluster.del(ticket);
+            //删除cookie
+            CookieUtil.delCookie(response, "JT_TICKET", "/", "jt.com");
+        }
+
+        return "redirect:/"; //代表缺省值
+    }
+
+
+
+
 
    /* @RequestMapping("/logout")
     public String logout(HttpServletRequest request,HttpServletResponse response){
