@@ -5,6 +5,7 @@ import com.jt.pojo.Cart;
 import com.jt.service.DubboCartService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -31,5 +32,30 @@ public class CartController {
         model.addAttribute("cartList",cartList);
         return "cart";
     }
+
+    /**
+     * 业务说明:  实现用户购物车数据新增
+     * url: http://www.jt.com/cart/add/1474391990.html
+     * 参数: 购物车表单提交  Cart对象
+     * 返回值: 重定向到跳转到购物车展现页面
+     *
+     * 扩展内容: 如果restFul的参数,与对象的属性名称一致,则可以直接赋值
+     */
+    @RequestMapping("/add/{itemId}")
+    public String addCart(Cart cart){
+        long userId = 7;
+        cart.setUserId(userId);
+        cartService.addCart(cart);
+        return "redirect:/cart/show.html";
+    }
+
+
+
+
+
+
+
+
+
 
 }
