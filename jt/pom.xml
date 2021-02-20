@@ -13,6 +13,7 @@
         <module>jt-manage</module>
         <module>jt-web</module>
         <module>jt-sso</module>
+        <module>jt-cart</module>
     </modules>
     <!-- 定义聚合工程 大项目包含小项目 -->
     <packaging>pom</packaging>
