@@ -57,6 +57,7 @@
     <div id="product-list" class="cart-tbody">
         <!-- ************************商品开始********************* -->
         <c:set var="totalPrice" value="0"></c:set>
+        <!-- 利用el表达式 从域中动态获取数据 -->
         <c:forEach items="${cartList}" var="cart">
         	<c:set var="totalPrice"  value="${ totalPrice + (cart.itemPrice * cart.num)}"/>
 	        <div id="product_11345721" data-bind="rowid:1" class="item item_selected ">
