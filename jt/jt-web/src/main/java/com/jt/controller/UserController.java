@@ -7,6 +7,7 @@ import com.jt.service.UserService;
 import com.jt.vo.SysResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -106,7 +107,11 @@ public class UserController {
     @ResponseBody
     public SysResult doLogin(User user, HttpServletResponse response){
 
-        String ticket = "从后端服务器获取的信息";
+        String ticket = dubboUserService.doLogin(user);
+        if(!StringUtils.hasLength(ticket)){
+
+            return SysResult.fail();
+        }
         Cookie cookie = new Cookie("JT_TICKET", ticket);
         cookie.setMaxAge(7*24*60*60);   //设定7天有效
         cookie.setPath("/");  //请求在根目录中都可以获取cookie
