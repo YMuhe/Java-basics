@@ -5769,10 +5769,12 @@ function cancelAllUsedGiftCards(giftCardType) {
 			type : "POST",
 			dataType : "json",
 			url : "/order/submit",
+			//将name属性与值进行拼接 形式 name=value1&name2=value2&name3=value3......
+			//表单序列化,可以简化参数写法
 			data : $("#orderForm").serialize(),
 			cache : false,
-			success : function(result) {
-				if(result.status == 200){
+			success : function(result) {    //SysResult对象
+				if(result.status == 200){   //要求返回orderId
 					location.href = "/order/success.html?id="+result.data;
 				}else{
 					$("#submit_message").html("订单提交失败，请稍后重试...").show();
