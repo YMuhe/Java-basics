@@ -8,4 +8,6 @@ public interface DubboCartService {
     List<Cart> findCartListByUserId(long userId);
 
     void addCart(Cart cart);
+
+    void updateNum(Cart cart);
 }

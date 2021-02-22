@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -49,7 +50,20 @@ public class CartController {
         return "redirect:/cart/show.html";
     }
 
+    /**
+     * 购物车数量更新操作
+     * URL地址: http://www.jt.com/cart/update/num/1474391990/16
+     * 参数:    itemId,num
+     * 返回值:  没有 void
+     */
+    @RequestMapping("/update/num/{itemId}/{num}")
+    @ResponseBody //将返回值转化为json   代表ajax程序结束
+    public void updateNum(Cart cart){
 
+        long userId = 7;
+        cart.setUserId(userId);
+        cartService.updateNum(cart);
+    }
 
 
 

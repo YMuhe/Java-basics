@@ -47,4 +47,16 @@ public class DubboCartServiceImpl implements DubboCartService{
             cartMapper.updateById(temp);
         }
     }
+
+    //sql: update tb_cart set num=#{num},updated=#{updated} where user_id=#{userId} and
+    //     item_id = #{itemId}
+    @Override
+    public void updateNum(Cart cart) {
+        Cart temp = new Cart();
+        temp.setNum(cart.getNum());
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("user_id", cart.getUserId());
+        queryWrapper.eq("item_id", cart.getItemId());
+        cartMapper.update(temp,queryWrapper);
+    }
 }
