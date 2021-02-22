@@ -65,7 +65,18 @@ public class CartController {
         cartService.updateNum(cart);
     }
 
+    /**
+     * URL地址:http://www.jt.com/cart/delete/1474391990.html
+     * 返回值:  String类型
+     */
+    @RequestMapping("/delete/{itemId}")
+    public String deleteCart(Cart cart){
 
+        long userId = 7;
+        cart.setUserId(userId);
+        cartService.deleteCart(cart);
+        return "redirect:/cart/show.html";
+    }
 
 
 

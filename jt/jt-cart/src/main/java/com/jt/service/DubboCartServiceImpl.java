@@ -59,4 +59,10 @@ public class DubboCartServiceImpl implements DubboCartService{
         queryWrapper.eq("item_id", cart.getItemId());
         cartMapper.update(temp,queryWrapper);
     }
+
+    @Override
+    public void deleteCart(Cart cart) {
+        //根据对象中不为null的属性充当where条件
+        cartMapper.delete(new QueryWrapper<>(cart));
+    }
 }
