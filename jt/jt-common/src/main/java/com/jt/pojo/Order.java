@@ -22,7 +22,7 @@ public class Order extends BasePojo{
 	@TableField(exist=false)	//入库操作忽略该字段
 	private List<OrderItem> orderItems;
 	
-	@TableId(type = IdType.AUTO)                    //只标识主键
+	@TableId                    //只标识主键
     private String orderId;     //'订单号：登录用户id+当前时间戳'
     private String payment;
     private Integer paymentType;
