@@ -59,7 +59,20 @@ public class OrderController {
         return SysResult.success(orderId);
     }
 
-
+    /**
+     * 实现订单查询
+     * url: http://www.jt.com/order/success.html?id=71613981329562
+     * 参数: orderId
+     * 返回值: 成功页面 success.jsp
+     * 页面取值: Order对象(包含其它2个业务数据) ${order.orderId}
+     */
+    @RequestMapping("/success")
+    public String success(String id,Model model){
+        //根据id 查询订单对象
+        Order order = orderService.findOrderById(id);
+        model.addAttribute("order", order);
+        return "success";
+    }
 
 
 }

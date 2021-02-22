@@ -62,4 +62,15 @@ public class OrderServiceImpl implements DubboOrderService {
 		System.out.println("订单全部入库成功!!!!");
 		return orderId;
 	}
+
+	@Override
+	public Order findOrderById(String id) {
+
+		Order order = orderMapper.selectById(id);
+		OrderShipping orderShipping = orderShippingMapper.selectById(id);
+		QueryWrapper queryWrapper = new QueryWrapper();
+		queryWrapper.eq("order_id", id);
+		List<OrderItem> orderItems = orderItemMapper.selectList(queryWrapper);
+		return order.setOrderShipping(orderShipping).setOrderItems(orderItems);
+	}
 }
