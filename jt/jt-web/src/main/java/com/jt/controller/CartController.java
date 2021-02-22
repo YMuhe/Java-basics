@@ -2,13 +2,16 @@ package com.jt.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.jt.pojo.Cart;
+import com.jt.pojo.User;
 import com.jt.service.DubboCartService;
+import com.jt.util.UserThreadLocal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -26,8 +29,9 @@ public class CartController {
      * 页面取值方式: ${cartList}
      */
     @RequestMapping("/show")
-    public String show(Model model){
-        long userId = 7L;   //暂时写死  后期维护
+    public String show(Model model,HttpServletRequest request){
+        User user = (User) request.getAttribute("JT_USER");
+        long userId = user.getId();
         List<Cart> cartList = cartService.findCartListByUserId(userId);
         //利用model对象将数据保存到request对象中
         model.addAttribute("cartList",cartList);
@@ -44,7 +48,7 @@ public class CartController {
      */
     @RequestMapping("/add/{itemId}")
     public String addCart(Cart cart){
-        long userId = 7;
+        long userId = UserThreadLocal.get().getId();
         cart.setUserId(userId);
         cartService.addCart(cart);
         return "redirect:/cart/show.html";
@@ -60,7 +64,7 @@ public class CartController {
     @ResponseBody //将返回值转化为json   代表ajax程序结束
     public void updateNum(Cart cart){
 
-        long userId = 7;
+        long userId = UserThreadLocal.get().getId();
         cart.setUserId(userId);
         cartService.updateNum(cart);
     }
@@ -72,7 +76,7 @@ public class CartController {
     @RequestMapping("/delete/{itemId}")
     public String deleteCart(Cart cart){
 
-        long userId = 7;
+        long userId = UserThreadLocal.get().getId();
         cart.setUserId(userId);
         cartService.deleteCart(cart);
         return "redirect:/cart/show.html";
